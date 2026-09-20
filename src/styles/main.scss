@@ -174,8 +174,6 @@ body {
     color: #666;
 }
 
-/* Notifications */
-
 .library-notification {
     position: fixed;
     top: 20px;
@@ -198,6 +196,78 @@ body {
 .library-notification-error {
     background: #dc3545;
     color: white;
+}
+
+.library-modal {
+    position: fixed;
+    inset: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(0, 0, 0, 0.5);
+
+    z-index: 10000;
+}
+
+.library-modal-content {
+    position: relative;
+
+    width: 400px;
+    max-width: calc(100% - 40px);
+
+    padding: 24px;
+
+    background: white;
+    border-radius: 6px;
+
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+}
+
+.library-modal-content h2 {
+    margin: 0 0 15px;
+}
+
+.library-modal-close {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+
+    border: none;
+    background: transparent;
+
+    font-size: 24px;
+    cursor: pointer;
+}
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.pagination-button {
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background: #fff;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.pagination-button:hover:not(:disabled) {
+    background: #f1f1f1;
+}
+
+.pagination-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+#page-info {
+    font-size: 14px;
 }
 
 @media (max-width: 700px) {

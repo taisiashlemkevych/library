@@ -1,9 +1,10 @@
-import { IUser } from '../interfaces/IUser.js';
+import type { IUser } from '../interfaces/IUser.js';
 
 export class User implements IUser {
     constructor(
         private _id: string,
         private _name: string,
+        private _email: string,
         private _borrowedBooks: string[] = []
     ) {}
 
@@ -15,6 +16,10 @@ export class User implements IUser {
         return this._name;
     }
 
+    get email(): string {
+        return this._email;
+    }
+
     get borrowedBooks(): string[] {
         return this._borrowedBooks;
     }
@@ -24,6 +29,8 @@ export class User implements IUser {
     }
 
     removeBook(bookId: string): void {
-        this._borrowedBooks = this._borrowedBooks.filter((id) => id !== bookId);
+        this._borrowedBooks = this._borrowedBooks.filter(
+            (id) => id !== bookId
+        );
     }
 }

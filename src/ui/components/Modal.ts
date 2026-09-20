@@ -1,8 +1,13 @@
 export function renderModal(title: string, content: string): string {
     return `
-        <div class="modal" id="modal">
-            <div class="modal-content">
-                <button id="modal-close">×</button>
+        <div class="library-modal" id="modal">
+            <div class="library-modal-content">
+                <button
+                    class="library-modal-close"
+                    id="modal-close"
+                >
+                    ×
+                </button>
 
                 <h2>${title}</h2>
 

@@ -5,11 +5,11 @@ import { renderBookList } from './components/BookList';
 import { renderUserForm } from './components/UserForm';
 
 export function renderBooks(
-    container: HTMLElement,
-    books: IBook[],
-    users: IUser[]
+ container: HTMLElement,
+ books: IBook[],
+ users: IUser[]
 ): void {
-    container.innerHTML = `
+ container.innerHTML = `
   <main class="library-container">
    <h1 class="library-title">Система Управління Бібліотекою</h1>
    ${renderBookForm()}
@@ -19,18 +19,17 @@ export function renderBooks(
     <h2>Список Користувачів</h2>
     <div id="user-list">
      ${
-         users.length === 0
-             ? '<p class="empty-message">Користувачів ще немає.</p>'
-             : users
-                   .map(
-                       (user) => `
-      <div class="user-item">
-       <span> ${user.id} ${user.name}</span>
-       <span class="status">Книг: ${user.borrowedBooks.length}</span>
-      </div>
-     `
-                   )
-                   .join('')
+      users.length === 0
+       ? '<p class="empty-message">Користувачів ще немає.</p>'
+       : users.map(user => `
+        <div class="user-item">
+         <span>ID: ${user.id} | Ім'я: ${user.name} | Email:${user.email}</span>
+         <div class="book-actions">
+          <span class="status">Книг: ${user.borrowedBooks.length}</span>
+          <button class="delete-user btn-red" data-user-id="${user.id}">Видалити</button>
+         </div>
+        </div>
+       `).join('')
      }
     </div>
    </section>

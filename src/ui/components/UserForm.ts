@@ -11,6 +11,13 @@ export function renderUserForm(): string {
                     required
                 >
 
+                <input
+                    type="email"
+                    id="user-email"
+                    placeholder="Email"
+                    required
+                >
+
                 <button type="submit" class="btn-green">
                     Додати Користувача
                 </button>
