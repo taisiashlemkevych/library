@@ -28,27 +28,19 @@ const savedUsers = Storage.load<SavedUser[]>('users');
 
 const books = savedBooks
     ? savedBooks.map(
-        b => new Book(
-            b._id,
-            b._title,
-            b._author,
-            b._year,
-            b._isBorrowed
-        )
-    )
+          (b) => new Book(b._id, b._title, b._author, b._year, b._isBorrowed)
+      )
     : [];
 
 const users = savedUsers
-    ? savedUsers.map(
-        u => new User(u._id, u._name, u._borrowedBooks)
-    )
+    ? savedUsers.map((u) => new User(u._id, u._name, u._borrowedBooks))
     : [];
 
 const bookLibrary = new Library<Book>();
 const userLibrary = new Library<User>();
 
-books.forEach(book => bookLibrary.add(book));
-users.forEach(user => userLibrary.add(user));
+books.forEach((book) => bookLibrary.add(book));
+users.forEach((user) => userLibrary.add(user));
 
 function saveData(): void {
     Storage.save('books', bookLibrary.getAll());
@@ -56,84 +48,80 @@ function saveData(): void {
 }
 
 function render(): void {
-    renderBooks(
-        app,
-        bookLibrary.getAll(),
-        userLibrary.getAll()
-    );
+    renderBooks(app, bookLibrary.getAll(), userLibrary.getAll());
 
     addEvents();
 }
 
 function addEvents(): void {
-    document.getElementById('book-form')?.addEventListener('submit', event => {
-        event.preventDefault();
+    document
+        .getElementById('book-form')
+        ?.addEventListener('submit', (event) => {
+            event.preventDefault();
 
-        const title = (
-            document.getElementById('book-title') as HTMLInputElement
-        ).value.trim();
+            const title = (
+                document.getElementById('book-title') as HTMLInputElement
+            ).value.trim();
 
-        const author = (
-            document.getElementById('book-author') as HTMLInputElement
-        ).value.trim();
+            const author = (
+                document.getElementById('book-author') as HTMLInputElement
+            ).value.trim();
 
-        const yearValue = (
-            document.getElementById('book-year') as HTMLInputElement
-        ).value.trim();
+            const yearValue = (
+                document.getElementById('book-year') as HTMLInputElement
+            ).value.trim();
 
-        if (
-            !Validation.required(title) ||
-            !Validation.required(author) ||
-            !Validation.required(yearValue)
-        ) {
-            NotificationService.showError(
-                'Всі поля книги є обов’язковими.'
-            );
-            return;
-        }
+            if (
+                !Validation.required(title) ||
+                !Validation.required(author) ||
+                !Validation.required(yearValue)
+            ) {
+                NotificationService.showError(
+                    'Всі поля книги є обов’язковими.'
+                );
+                return;
+            }
 
-        if (!Validation.publicationYear(yearValue)) {
-            NotificationService.showError(
-                'Рік видання має містити 4 цифри.'
-            );
-            return;
-        }
+            if (!Validation.publicationYear(yearValue)) {
+                NotificationService.showError(
+                    'Рік видання має містити 4 цифри.'
+                );
+                return;
+            }
 
-        const year = Number(yearValue);
+            const year = Number(yearValue);
 
-        bookLibrary.add(
-            new Book(String(Date.now()), title, author, year)
-        );
+            bookLibrary.add(new Book(String(Date.now()), title, author, year));
 
-        saveData();
-        NotificationService.show('Book added successfully!');
-        render();
-    });
+            saveData();
+            NotificationService.show('Book added successfully!');
+            render();
+        });
 
-    document.getElementById('user-form')?.addEventListener('submit', event => {
-        event.preventDefault();
+    document
+        .getElementById('user-form')
+        ?.addEventListener('submit', (event) => {
+            event.preventDefault();
 
-        const name = (
-            document.getElementById('user-name') as HTMLInputElement
-        ).value.trim();
+            const name = (
+                document.getElementById('user-name') as HTMLInputElement
+            ).value.trim();
 
-        if (!Validation.required(name)) {
-            NotificationService.showError(
-                'Імʼя користувача є обов’язковим.'
-            );
-            return;
-        }
+            if (!Validation.required(name)) {
+                NotificationService.showError(
+                    'Імʼя користувача є обов’язковим.'
+                );
+                return;
+            }
 
-        userLibrary.add(
-            new User(String(Date.now()), name)
-        );
+            userLibrary.add(new User(String(Date.now()), name));
 
-        saveData();
-        NotificationService.show('User added successfully!');
-        render();
-    });
+            saveData();
+            NotificationService.show('User added successfully!');
+            render();
+        });
 
-    document.querySelectorAll('.delete-book').forEach(button => {
+    document.querySelectorAll('.delete-book').forEach((button) => {
         button.addEventListener('click', () => {
             const id = (button as HTMLElement).dataset.bookId;
 
@@ -148,9 +136,7 @@ function addEvents(): void {
             }
 
             if (book.isBorrowed) {
-                NotificationService.show(
-                    'You cannot delete a borrowed book.'
-                );
+                NotificationService.show('You cannot delete a borrowed book.');
                 return;
             }
 
@@ -161,7 +147,7 @@ function addEvents(): void {
         });
     });
 
-    document.querySelectorAll('.borrow-book').forEach(button => {
+    document.querySelectorAll('.borrow-book').forEach((button) => {
         button.addEventListener('click', () => {
             const id = (button as HTMLElement).dataset.bookId;
 
@@ -186,21 +172,17 @@ function addEvents(): void {
             }
 
             if (!bookLibrary.borrowBook(book, user)) {
-                NotificationService.show(
-                    'The book cannot be borrowed.'
-                );
+                NotificationService.show('The book cannot be borrowed.');
                 return;
             }
 
             saveData();
-            NotificationService.show(
-                `Book borrowed by ${user.name}.`
-            );
+            NotificationService.show(`Book borrowed by ${user.name}.`);
             render();
         });
     });
 
-    document.querySelectorAll('.return-book').forEach(button => {
+    document.querySelectorAll('.return-book').forEach((button) => {
         button.addEventListener('click', () => {
             const element = button as HTMLElement;
             const book = bookLibrary.findById(element.dataset.bookId!);
@@ -211,9 +193,7 @@ function addEvents(): void {
             }
 
             if (!bookLibrary.returnBook(book, user)) {
-                NotificationService.show(
-                    'The book cannot be returned.'
-                );
+                NotificationService.show('The book cannot be returned.');
                 return;
             }
 
@@ -223,21 +203,23 @@ function addEvents(): void {
         });
     });
 
-    document.getElementById('book-search')?.addEventListener('input', event => {
-        const query = (
-            event.target as HTMLInputElement
-        ).value.toLowerCase();
+    document
+        .getElementById('book-search')
+        ?.addEventListener('input', (event) => {
+            const query = (
+                event.target as HTMLInputElement
+            ).value.toLowerCase();
 
-        document.querySelectorAll('.book-item').forEach(item => {
-            const text = item.textContent?.toLowerCase() ?? '';
+            document.querySelectorAll('.book-item').forEach((item) => {
+                const text = item.textContent?.toLowerCase() ?? '';
 
-            if (text.includes(query)) {
-                (item as HTMLElement).style.display = '';
-            } else {
-                (item as HTMLElement).style.display = 'none';
-            }
+                if (text.includes(query)) {
+                    (item as HTMLElement).style.display = '';
+                } else {
+                    (item as HTMLElement).style.display = 'none';
+                }
+            });
         });
-    });
 }
 
 saveData();

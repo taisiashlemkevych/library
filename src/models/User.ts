@@ -24,6 +24,6 @@ export class User implements IUser {
     }
 
     removeBook(bookId: string): void {
-        this._borrowedBooks = this._borrowedBooks.filter(id => id !== bookId);
+        this._borrowedBooks = this._borrowedBooks.filter((id) => id !== bookId);
     }
 }

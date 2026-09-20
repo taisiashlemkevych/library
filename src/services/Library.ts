@@ -9,11 +9,11 @@ export class Library<T extends { id: string }> {
     }
 
     remove(id: string): void {
-        this.items = this.items.filter(item => item.id !== id);
+        this.items = this.items.filter((item) => item.id !== id);
     }
 
     findById(id: string): T | undefined {
-        return this.items.find(item => item.id === id);
+        return this.items.find((item) => item.id === id);
     }
 
     getAll(): T[] {

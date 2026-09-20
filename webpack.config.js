@@ -9,11 +9,11 @@ module.exports = {
     output: {
         filename: 'bundle.js',
         path: path.resolve(__dirname, 'dist'),
-        clean: true
+        clean: true,
     },
 
     resolve: {
-        extensions: ['.ts', '.js']
+        extensions: ['.ts', '.js'],
     },
 
     module: {
@@ -21,7 +21,7 @@ module.exports = {
             {
                 test: /\.ts$/,
                 use: 'ts-loader',
-                exclude: /node_modules/
+                exclude: /node_modules/,
             },
             {
                 test: /\.s[ac]ss$/i,
@@ -33,27 +33,27 @@ module.exports = {
                         options: {
                             sassOptions: {
                                 quietDeps: true,
-                                silenceDeprecations: ['import']
-                            }
-                        }
-                    }
-                ]
-            }
-        ]
+                                silenceDeprecations: ['import'],
+                            },
+                        },
+                    },
+                ],
+            },
+        ],
     },
 
     plugins: [
         new HtmlWebpackPlugin({
-            template: './index.html'
-        })
+            template: './index.html',
+        }),
     ],
 
     devServer: {
         static: {
-            directory: path.join(__dirname, 'public')
+            directory: path.join(__dirname, 'public'),
         },
         port: 9000,
         open: true,
-        hot: true
-    }
+        hot: true,
+    },
 };

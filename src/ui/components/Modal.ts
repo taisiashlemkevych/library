@@ -1,7 +1,4 @@
-export function renderModal(
-    title: string,
-    content: string
-): string {
+export function renderModal(title: string, content: string): string {
     return `
         <div class="modal" id="modal">
             <div class="modal-content">

@@ -18,12 +18,20 @@ export function renderBooks(
    <section class="library-card">
     <h2>Список Користувачів</h2>
     <div id="user-list">
-     ${users.length === 0 ? '<p class="empty-message">Користувачів ще немає.</p>' : users.map(user => `
+     ${
+         users.length === 0
+             ? '<p class="empty-message">Користувачів ще немає.</p>'
+             : users
+                   .map(
+                       (user) => `
       <div class="user-item">
        <span> ${user.id} ${user.name}</span>
        <span class="status">Книг: ${user.borrowedBooks.length}</span>
       </div>
-     `).join('')}
+     `
+                   )
+                   .join('')
+     }
     </div>
    </section>
   </main>
