@@ -8,13 +8,6 @@ describe('Validation', () => {
         expect(Validation.required('   ')).to.equal(false);
     });
 
-    it('should validate user ID', () => {
-        expect(Validation.userId('12345')).to.equal(true);
-        expect(Validation.userId('00123')).to.equal(true);
-        expect(Validation.userId('12abc')).to.equal(false);
-        expect(Validation.userId('user123')).to.equal(false);
-    });
-
     it('should validate publication year', () => {
         expect(Validation.publicationYear('2024')).to.equal(true);
         expect(Validation.publicationYear('1997')).to.equal(true);

@@ -3,10 +3,6 @@ export class Validation {
         return value.trim().length > 0;
     }
 
-    static userId(id: string): boolean {
-        return /^\d+$/.test(id);
-    }
-
     static publicationYear(year: string): boolean {
         return /^\d{4}$/.test(year);
     }
